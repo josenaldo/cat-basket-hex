@@ -14,32 +14,31 @@ import java.util.function.Predicate;
 
 public class CatPersistenceAdapter implements SaveCatPort, QueryCatsPort {
 
-    private final SpringDataCatRepository repository;
+    private final SpringDataCatRepository catRepository;
 
-    public CatPersistenceAdapter(SpringDataCatRepository repository) {
-        this.repository = repository;
+    public CatPersistenceAdapter(SpringDataCatRepository catRepository) {
+        this.catRepository = catRepository;
     }
 
     @Override
     public Cat createCat(Cat cat) {
         CatEntity catEntity = toEntity(cat);
-        CatEntity savedCatEntity = repository.save(catEntity);
+        CatEntity savedCatEntity = catRepository.save(catEntity);
         return toCat(savedCatEntity);
     }
 
     @Override
     public List<Cat> getCats(GetCatsQuery query) {
-        List<CatEntity> entityResults;
-
         Optional<String> nameParam = query.byName().filter(Predicate.not(String::isBlank));
         Sort sort = toSort(query.sortRequestList());
 
+        List<CatEntity> entityResults;
         if (nameParam.isPresent()) {
             String s = nameParam.get();
             String byNameParam = "%%%s%%".formatted(s);
-            entityResults = repository.findByNameLike(byNameParam, sort);
+            entityResults = catRepository.findByNameLike(byNameParam, sort);
         }else {
-            entityResults = repository.findAll(sort);
+            entityResults = catRepository.findAll(sort);
         }
 
         return entityResults.stream().map(this::toCat).toList();
