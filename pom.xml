@@ -40,18 +40,17 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>me.paulschwarz</groupId>
+			<artifactId>spring-dotenv</artifactId>
+			<version>4.0.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.fasterxml.jackson.datatype</groupId>
+			<artifactId>jackson-datatype-jsr310</artifactId>
+		</dependency>
 	</dependencies>
-
-	<dependency>
-		<groupId>me.paulschwarz</groupId>
-		<artifactId>spring-dotenv</artifactId>
-		<version>4.0.0</version>
-	</dependency>
-
-	<dependency>
-		<groupId>com.fasterxml.jackson.datatype</groupId>
-		<artifactId>jackson-datatype-jsr310</artifactId>
-	</dependency>
 
 	<build>
 		<plugins>
