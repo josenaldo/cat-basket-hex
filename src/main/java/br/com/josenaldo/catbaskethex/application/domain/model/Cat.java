@@ -3,7 +3,6 @@ package br.com.josenaldo.catbaskethex.application.domain.model;
 import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDate;
-import java.util.Optional;
 import java.util.UUID;
 
 public class Cat {
@@ -32,8 +31,8 @@ public class Cat {
         this.birthDate = birthDate;
     }
 
-    public Optional<UUID> getId() {
-        return Optional.ofNullable(this.id);
+    public UUID getId() {
+        return this.id;
     }
 
     public void setId(UUID id) {

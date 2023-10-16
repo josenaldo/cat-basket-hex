@@ -8,11 +8,10 @@ import jakarta.validation.constraints.NotNull;
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.Optional;
 import java.util.UUID;
 
 @Entity
-@Table(name="TB_CATS")
+@Table(name = "TB_CATS")
 public class CatEntity implements Serializable {
 
     @Serial
@@ -34,8 +33,8 @@ public class CatEntity implements Serializable {
     public CatEntity() {
     }
 
-    public Optional<UUID> getId() {
-        return Optional.ofNullable(this.id);
+    public UUID getId() {
+        return this.id;
     }
 
     public void setId(UUID id) {

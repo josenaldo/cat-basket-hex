@@ -2,7 +2,8 @@ package br.com.josenaldo.catbaskethex.application.port.in;
 
 import br.com.josenaldo.catbaskethex.application.domain.model.Cat;
 
-public interface RegisterCatUseCase {
-    Cat registerCat(RegisterCatCommand cat) ;
+import java.util.List;
 
+public interface GetCatsUseCase {
+    List<Cat> getCats(GetCatsQuery query);
 }

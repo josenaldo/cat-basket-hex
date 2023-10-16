@@ -1,21 +1,26 @@
 package br.com.josenaldo.catbaskethex.application.domain.service;
 
 import br.com.josenaldo.catbaskethex.application.domain.model.Cat;
+import br.com.josenaldo.catbaskethex.application.port.in.RegisterCatCommand;
 import br.com.josenaldo.catbaskethex.application.port.in.RegisterCatUseCase;
-import br.com.josenaldo.catbaskethex.application.port.out.CreateCatPort;
+import br.com.josenaldo.catbaskethex.application.port.out.SaveCatPort;
 import jakarta.transaction.Transactional;
 
 @Transactional
 public class RegisterCatService implements RegisterCatUseCase {
-    private final CreateCatPort createCatPort;
+    private final SaveCatPort saveCatPort;
 
-    public RegisterCatService(CreateCatPort createCatPort) {
-        this.createCatPort = createCatPort;
+    public RegisterCatService(SaveCatPort saveCatPort) {
+        this.saveCatPort = saveCatPort;
     }
 
     @Override
-    public Cat registerCat(Cat cat) {
+    public Cat registerCat(RegisterCatCommand catCommand) {
+        Cat cat = toCat(catCommand);
+        return saveCatPort.createCat(cat);
+    }
 
-        return createCatPort.createCat(cat);
+    private Cat toCat(RegisterCatCommand catCommand) {
+        return new Cat(catCommand.name(), catCommand.gender(), catCommand.birthDate());
     }
 }
