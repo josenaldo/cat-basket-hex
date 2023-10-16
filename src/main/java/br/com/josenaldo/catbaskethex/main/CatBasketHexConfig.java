@@ -17,10 +17,6 @@ public class CatBasketHexConfig {
         return new RegisterCatService(saveCatPort);
     }
 
-    @Bean
-    SaveCatPort createCatPort(SpringDataCatRepository repository) {
-        return new CatPersistenceAdapter(repository);
-    }
 
     @Bean
     GetCatsService getCatsService(QueryCatsPort queryCatsPort) {
@@ -28,7 +24,8 @@ public class CatBasketHexConfig {
     }
 
     @Bean
-    QueryCatsPort queryCatsPort(SpringDataCatRepository repository) {
+    CatPersistenceAdapter catPersistenceAdapter(SpringDataCatRepository repository) {
         return new CatPersistenceAdapter(repository);
     }
+
 }

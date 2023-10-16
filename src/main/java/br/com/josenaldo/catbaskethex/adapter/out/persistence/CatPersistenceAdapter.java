@@ -34,10 +34,12 @@ public class CatPersistenceAdapter implements SaveCatPort, QueryCatsPort {
         Optional<String> nameParam = query.byName().filter(Predicate.not(String::isBlank));
         Sort sort = toSort(query.sortRequestList());
 
-        if (nameParam.isEmpty()) {
-            entityResults = repository.findAll(sort);
+        if (nameParam.isPresent()) {
+            String s = nameParam.get();
+            String byNameParam = "%%%s%%".formatted(s);
+            entityResults = repository.findByNameLike(byNameParam, sort);
         }else {
-            entityResults = repository.findByNameLike("%%%s%%".formatted(nameParam), sort);
+            entityResults = repository.findAll(sort);
         }
 
         return entityResults.stream().map(this::toCat).toList();
