@@ -1,4 +1,8 @@
 package br.com.josenaldo.catbaskethex.application.port.in;
 
-public class RegisterCatUseCase {
+import br.com.josenaldo.catbaskethex.application.domain.model.Cat;
+
+public interface RegisterCatUseCase {
+    Cat registerCat(Cat cat);
+
 }

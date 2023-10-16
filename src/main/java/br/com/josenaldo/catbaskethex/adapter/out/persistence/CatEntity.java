@@ -1,35 +1,37 @@
-package br.com.josenaldo.catbaskethex.application.domain.model;
+package br.com.josenaldo.catbaskethex.adapter.out.persistence;
 
+import br.com.josenaldo.catbaskethex.application.domain.model.Gender;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Optional;
 import java.util.UUID;
 
-public class Cat {
+@Entity
+@Table(name="TB_CATS")
+public class CatEntity implements Serializable {
 
+    @Serial
+    private static final long serialVersionUID = 1L;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    @NotNull
+    @NotBlank(message = "Name is mandatory")
     private String name;
 
-    @NotNull
+    @NotNull(message = "Gender is mandatory")
     private Gender gender;
 
-    @NotNull
     private LocalDate birthDate;
 
-    public Cat(UUID id, String name, Gender gender, LocalDate birthDate) {
-        this.id = id;
-        this.name = name;
-        this.gender = gender;
-        this.birthDate = birthDate;
-    }
 
-    public Cat(String name, Gender gender, LocalDate birthDate) {
-        this.name = name;
-        this.gender = gender;
-        this.birthDate = birthDate;
+    public CatEntity() {
     }
 
     public Optional<UUID> getId() {
